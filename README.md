@@ -8,6 +8,8 @@ Remote state lives in S3 (`ajs-tfstate-<account-id>`, created by the workflow on
 Actions > Terraform (AWS) > Run workflow: `plan` (preview), `apply` (create/update), `destroy` (delete everything).
 A push to `main` touching `infra/` runs fmt + validate + plan only; apply and destroy are manual.
 
+IAM policy for the deployer user: `iam/deployer-policy.json`.
+
 Needs repository secrets `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` and repository variable `BUDGET_EMAIL`.
 
 After the first apply, set the real value of `/agentic-job-seeker/secret/JOBHUB_SECRET_GMAIL_APP_PASSWORD` in Parameter Store.
