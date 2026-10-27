@@ -171,6 +171,6 @@ jobs:
             echo "Server URL: \`$(terraform output -raw server_url)\`"
             echo "Instance: \`$(terraform output -raw instance_id)\`"
             echo
-            echo "First boot installs Docker and builds the image (~10 min). Then read the API token once:"
-            echo "\`$(terraform output -raw get_credentials)\`"
+            echo "First boot installs Docker and builds the image (~10 min). Then read the API token (needs AWS credentials):"
+            echo "\`$(terraform output -raw get_api_token)\`"
           } >> "$GITHUB_STEP_SUMMARY"
