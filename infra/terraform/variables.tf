@@ -11,13 +11,13 @@ variable "name" {
 }
 
 variable "instance_type" {
-  description = "t4g.small (ARM, 2 GB) is the best value. x86 alternatives: t3.small / t3.micro."
+  description = "t4g.small (ARM, 2 GB) is the default. t4g.medium (4 GB) fits 3 parallel browser runs plus the WhatsApp gateway but AWS had no capacity for it in ap-south-1c on 2026-10-28; choose it from the workflow input when available. x86: t3.small / t3.micro."
   type        = string
   default     = "t4g.small"
 
   validation {
-    condition     = contains(["t4g.micro", "t4g.small", "t3.micro", "t3.small"], var.instance_type)
-    error_message = "instance_type must be one of t4g.micro, t4g.small, t3.micro, t3.small."
+    condition     = contains(["t4g.micro", "t4g.small", "t4g.medium", "t3.micro", "t3.small"], var.instance_type)
+    error_message = "instance_type must be one of t4g.micro, t4g.small, t4g.medium, t3.micro, t3.small."
   }
 }
 
@@ -61,9 +61,9 @@ variable "budget_email" {
 }
 
 variable "budget_limit_usd" {
-  description = "Monthly budget threshold in USD."
+  description = "Monthly budget threshold in USD (t4g.medium + Elastic IP + 30 GB disk is about 23)."
   type        = number
-  default     = 20
+  default     = 30
 }
 
 variable "ssh_cidr" {

@@ -22,7 +22,7 @@ on:
         default: plan
       instance_type:
         type: choice
-        options: [t4g.small, t4g.micro, t3.small, t3.micro]
+        options: [t4g.small, t4g.medium, t4g.micro, t3.small, t3.micro]
         default: t4g.small
       domain:
         description: Optional domain pointing at the Elastic IP (empty = <ip>.sslip.io)
