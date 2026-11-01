@@ -10,6 +10,9 @@ locals {
     "JOBHUB_BROWSER_PASSWORD",
     "JOBHUB_BROWSER_HASH",
     "JOBHUB_SECRET_GMAIL_APP_PASSWORD",
+    "JOBHUB_FIRECRAWL_API_KEY",
+    "KIRO_API_KEY",
+    "TELEGRAM_BOT_TOKEN",
     # WhatsApp gateway (upstream Evolution Go, runs as containers on this instance). Generated on the instance by
     # deploy/bootstrap-env.sh: the gateway's admin key and its PostgreSQL password.
     "JOBHUB_EVOLUTION_KEY",
@@ -17,14 +20,21 @@ locals {
   ]
 
   # Plain configuration (not secret). Every String parameter under <prefix>/env becomes an environment variable.
-  env_values = {
+  base_env_values = {
     JOBHUB_DOMAIN       = local.hostname
     JOBHUB_BROWSER_USER = "jobhub"
     JOBHUB_DISABLE_DOCS = "1"
+    JOBHUB_INSTALL_KIRO = "1"
+    JOBHUB_MAX_PARALLEL = "6"
     # WhatsApp gateway containers (compose profile "whatsapp") and where the app reaches them (compose network only).
     COMPOSE_PROFILES     = "whatsapp"
     JOBHUB_EVOLUTION_URL = "http://evolution-go:4000"
   }
+
+  env_values = merge(
+    local.base_env_values,
+    var.reacher_url != "" ? { REACHER_URL = var.reacher_url } : {}
+  )
 }
 
 data "aws_caller_identity" "current" {}

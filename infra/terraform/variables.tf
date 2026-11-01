@@ -71,3 +71,9 @@ variable "ssh_cidr" {
   type        = string
   default     = ""
 }
+
+variable "reacher_url" {
+  description = "Optional URL of a self-hosted Reacher email verification service (e.g. http://<ip>:3000)."
+  type        = string
+  default     = ""
+}
