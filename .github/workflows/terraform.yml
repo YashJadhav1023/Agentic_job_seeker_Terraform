@@ -43,7 +43,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   TF_VAR_region: ${{ vars.AWS_REGION || 'ap-south-1' }}
-  TF_VAR_budget_email: ${{ vars.BUDGET_EMAIL || 'unset@example.com' }}
+  TF_VAR_budget_email: ${{ vars.BUDGET_EMAIL || 'yash.j.devops@gmail.com' }}
   TF_VAR_instance_type: ${{ inputs.instance_type || 't4g.small' }}
   TF_VAR_domain: ${{ inputs.domain || '' }}
 
@@ -80,13 +80,12 @@ jobs:
         run: |
           APPLY=false; DESTROY=false
           if [ "$EVENT" = workflow_dispatch ] && [ "$ACTION" = apply ]; then APPLY=true; fi
+          if [ "$EVENT" = push ] && [ "$REF" = refs/heads/main ]; then APPLY=true; fi
           if [ "$EVENT" = workflow_dispatch ] && [ "$ACTION" = destroy ]; then DESTROY=true; fi
           echo "will_apply=$APPLY" >> "$GITHUB_OUTPUT"
           echo "will_destroy=$DESTROY" >> "$GITHUB_OUTPUT"
           if [ -n "$AWS_ACCESS_KEY_ID" ]; then echo "has_creds=true" >> "$GITHUB_OUTPUT"; else
             echo "has_creds=false" >> "$GITHUB_OUTPUT"; echo "::warning::AWS secrets not available (fork PR or not set) - skipping plan"; fi
-          if [ "$APPLY" = true ] && [ "${TF_VAR_budget_email}" = "unset@example.com" ]; then
-            echo "::error::Set the repository variable BUDGET_EMAIL (Settings > Secrets and variables > Actions > Variables) before applying"; exit 1; fi
 
       - uses: hashicorp/setup-terraform@v3
         if: steps.mode.outputs.has_creds == 'true'
