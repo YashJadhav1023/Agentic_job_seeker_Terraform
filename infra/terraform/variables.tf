@@ -82,7 +82,7 @@ variable "reacher_url" {
 variable "enable_reacher" {
   description = "Provision a dedicated EC2 micro instance for the Reacher email verification service."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "reacher_instance_type" {
