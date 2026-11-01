@@ -53,6 +53,7 @@ variable "repo_ref" {
 variable "budget_email" {
   description = "Email for the cost alarm. Alerts when any real charge is forecast (limit: 1 USD/month)."
   type        = string
+  default     = "yash.j.devops@gmail.com"
 
   validation {
     condition     = can(regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", var.budget_email))

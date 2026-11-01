@@ -11,7 +11,8 @@ locals {
     "JOBHUB_BROWSER_HASH",
     "JOBHUB_SECRET_GMAIL_APP_PASSWORD",
     "JOBHUB_FIRECRAWL_API_KEY",
-    "KIRO_API_KEY",
+    "JOBHUB_LLM_API_KEY",
+    "GROQ_API_KEY",
     "TELEGRAM_BOT_TOKEN",
     # WhatsApp gateway (upstream Evolution Go, runs as containers on this instance). Generated on the instance by
     # deploy/bootstrap-env.sh: the gateway's admin key and its PostgreSQL password.
@@ -24,7 +25,7 @@ locals {
     JOBHUB_DOMAIN       = local.hostname
     JOBHUB_BROWSER_USER = "jobhub"
     JOBHUB_DISABLE_DOCS = "1"
-    JOBHUB_INSTALL_KIRO = "1"
+    JOBHUB_INSTALL_KIRO = "0"
     JOBHUB_MAX_PARALLEL = "6"
     # WhatsApp gateway containers (compose profile "whatsapp") and where the app reaches them (compose network only).
     COMPOSE_PROFILES     = "whatsapp"
