@@ -73,7 +73,19 @@ variable "ssh_cidr" {
 }
 
 variable "reacher_url" {
-  description = "Optional URL of a self-hosted Reacher email verification service (e.g. http://<ip>:3000)."
+  description = "Optional manual URL of a Reacher service. If empty and enable_reacher is true, the internal URL of aws_instance.reacher is used."
   type        = string
   default     = ""
+}
+
+variable "enable_reacher" {
+  description = "Provision a dedicated EC2 micro instance for the Reacher email verification service."
+  type        = bool
+  default     = true
+}
+
+variable "reacher_instance_type" {
+  description = "Instance type for Reacher. t3.nano (x86_64, 512 MB) runs Reacher natively without emulation."
+  type        = string
+  default     = "t3.nano"
 }

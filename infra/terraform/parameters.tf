@@ -31,9 +31,13 @@ locals {
     JOBHUB_EVOLUTION_URL = "http://evolution-go:4000"
   }
 
+  computed_reacher_url = var.reacher_url != "" ? var.reacher_url : (
+    var.enable_reacher && length(aws_instance.reacher) > 0 ? "http://${aws_instance.reacher[0].private_ip}:3000" : ""
+  )
+
   env_values = merge(
     local.base_env_values,
-    var.reacher_url != "" ? { REACHER_URL = var.reacher_url } : {}
+    local.computed_reacher_url != "" ? { REACHER_URL = local.computed_reacher_url } : {}
   )
 }
 

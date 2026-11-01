@@ -25,3 +25,13 @@ output "shell_access" {
   description = "Shell on the instance without SSH"
   value       = "aws ssm start-session --region ${var.region} --target ${aws_instance.this.id}"
 }
+
+output "reacher_public_ip" {
+  description = "Elastic IP of the Reacher EC2 instance (submit this IP to AWS for Port 25 unblocking)"
+  value       = var.enable_reacher && length(aws_eip.reacher) > 0 ? aws_eip.reacher[0].public_ip : null
+}
+
+output "reacher_internal_url" {
+  description = "Private VPC URL used by JobHub to query Reacher"
+  value       = var.enable_reacher && length(aws_instance.reacher) > 0 ? "http://${aws_instance.reacher[0].private_ip}:3000" : null
+}
