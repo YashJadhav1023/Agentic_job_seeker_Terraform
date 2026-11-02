@@ -90,3 +90,9 @@ variable "reacher_instance_type" {
   type        = string
   default     = "t3.nano"
 }
+
+variable "enable_inbound_smtp" {
+  description = "Open port 25 for direct inbound SMTP receiving on Mailflare."
+  type        = bool
+  default     = false
+}

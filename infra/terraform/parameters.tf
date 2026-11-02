@@ -18,6 +18,9 @@ locals {
     # deploy/bootstrap-env.sh: the gateway's admin key and its PostgreSQL password.
     "JOBHUB_EVOLUTION_KEY",
     "EVOLUTION_DB_PASSWORD",
+    # Mailflare AI Email Suite secrets
+    "MAILFLARE_SECRET_KEY",
+    "MAILFLARE_AI_API_KEY",
   ]
 
   # Plain configuration (not secret). Every String parameter under <prefix>/env becomes an environment variable.
@@ -27,9 +30,11 @@ locals {
     JOBHUB_DISABLE_DOCS = "1"
     JOBHUB_INSTALL_KIRO = "0"
     JOBHUB_MAX_PARALLEL = "6"
-    # WhatsApp gateway containers (compose profile "whatsapp") and where the app reaches them (compose network only).
-    COMPOSE_PROFILES     = "whatsapp"
-    JOBHUB_EVOLUTION_URL = "http://evolution-go:4000"
+    # Compose profiles: WhatsApp gateway + Mailflare AI email suite
+    COMPOSE_PROFILES      = "whatsapp,mailflare"
+    JOBHUB_EVOLUTION_URL  = "http://evolution-go:4000"
+    MAILFLARE_AI_BASE_URL = "http://ollama:11434/v1"
+    MAILFLARE_AI_MODEL    = "llama3.2"
   }
 
   computed_reacher_url = var.reacher_url != "" ? var.reacher_url : (

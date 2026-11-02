@@ -101,6 +101,16 @@ resource "aws_vpc_security_group_ingress_rule" "ssh" {
   cidr_ipv4         = var.ssh_cidr
 }
 
+resource "aws_vpc_security_group_ingress_rule" "smtp" {
+  count             = var.enable_inbound_smtp ? 1 : 0
+  security_group_id = aws_security_group.this.id
+  description       = "Inbound SMTP (Port 25) for Mailflare"
+  ip_protocol       = "tcp"
+  from_port         = 25
+  to_port           = 25
+  cidr_ipv4         = "0.0.0.0/0"
+}
+
 resource "aws_vpc_security_group_egress_rule" "all" {
   security_group_id = aws_security_group.this.id
   description       = "Outbound (job boards, Gmail SMTP, package repos)"

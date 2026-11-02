@@ -35,3 +35,8 @@ output "reacher_internal_url" {
   description = "Private VPC URL used by JobHub to query Reacher"
   value       = var.enable_reacher && length(aws_instance.reacher) > 0 ? "http://${aws_instance.reacher[0].private_ip}:3000" : null
 }
+
+output "mailflare_url" {
+  description = "Mailflare web interface and AI email assistant URL"
+  value       = "https://${local.hostname}/mail/"
+}
