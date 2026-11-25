@@ -46,6 +46,9 @@ env:
   TF_VAR_budget_email: ${{ vars.BUDGET_EMAIL || 'yash.j.devops@gmail.com' }}
   TF_VAR_instance_type: ${{ inputs.instance_type || 't4g.small' }}
   TF_VAR_domain: ${{ inputs.domain || '' }}
+  # Port 25 in for Mailflare (MX yashjadhavcicd.cc.cd -> mail.yashjadhavcicd.cc.cd -> 3.108.123.150).
+  # Set the repo variable ENABLE_INBOUND_SMTP=false to close it again.
+  TF_VAR_enable_inbound_smtp: ${{ vars.ENABLE_INBOUND_SMTP || 'true' }}
 
 jobs:
   validate:
